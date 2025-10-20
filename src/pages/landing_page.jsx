@@ -5,6 +5,7 @@ import { SectionMenu } from "./section_menu";
 import { PublicitePage } from "./publicité";
 import { Carousel } from "../components/caroussel";
 import Ticker from "./ticker";
+import SearchAnnonce from "../pages/annonces/search_annonce_page"
 
 export const LandingPage = () => {
   return (
@@ -15,6 +16,7 @@ export const LandingPage = () => {
         {/* <Ticker /> */}
       <Outlet />
       <Footer />
+     <SearchAnnonce />
     </div>
   );
 };
