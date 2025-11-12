@@ -15,6 +15,8 @@ import { RequireAuth } from "./components/require_auth";
 import AnnoncesList from "./pages/annonces/annonce_liste_page";
 import CreateAnnonceForm from "./pages/annonces/create_annonce_form";
 import AnnonceDetail from "./pages/annonces/annonce_detail";
+import SouscriptionsAnnonces from "./pages/annonces/souscriptions_annonces_user_page";
+import SouscriptionAnnonce from "./pages/annonces/souscription_annonce";
 
 
 const router = createBrowserRouter([
@@ -35,6 +37,8 @@ const router = createBrowserRouter([
           { path: "listeannonces", element: <AnnoncesList/> },
           { path: "/annonce_form", element: <CreateAnnonceForm/> },
           { path: "/annonces/:id", element: <AnnonceDetail /> },
+          { path: "/souscriptions-annonces-user", element: <SouscriptionsAnnonces /> },
+          { path: "/souscriptions-form", element: <SouscriptionAnnonce /> },
 
          
 

@@ -6,6 +6,7 @@ import { PublicitePage } from "./publicité";
 import { Carousel } from "../components/caroussel";
 import Ticker from "./ticker";
 import SearchAnnonce from "../pages/annonces/search_annonce_page"
+import SouscriptionAnnonce from "./annonces/souscription_annonce";
 
 export const LandingPage = () => {
   return (
@@ -16,7 +17,8 @@ export const LandingPage = () => {
         {/* <Ticker /> */}
       <Outlet />
       <Footer />
-     <SearchAnnonce />
+     {/* <SearchAnnonce /> */}
+     {/* <SouscriptionAnnonce /> */}
     </div>
   );
 };

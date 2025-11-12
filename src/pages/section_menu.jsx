@@ -22,6 +22,10 @@ export const SectionMenu = () => {
     if (!isLoggedIn) navigate("/login");
     else navigate("/annonce_form");
   };
+  const handleSouscriptionAnnonce = () => {
+    if (!isLoggedIn) navigate("/login");
+    else navigate("/souscriptions-form");
+  };
 
   const dropdownRef = useRef(null);
 
@@ -39,9 +43,9 @@ export const SectionMenu = () => {
 
   const menuItems = [
     { label: "ACCUEIL", path: "listeannonces" },
-    { label: "ANNONCES", path: "/listeannonces" },
+    // { label: "ANNONCES", path: "/listeannonces" },
      { label: "SERVICES" },
-    { label: "PUBLIREPORTAGES", path: "/publireportages" },
+    { label: "MES SOUSCRIPTIONS", path: "/souscriptions-annonces-user" },
     { label: "CONTACT", path: "/contact_page" },
   ];
 
@@ -54,33 +58,42 @@ export const SectionMenu = () => {
       {/* Header desktop & mobile */}
       <header className="bg-white shadow-md px-4 sm:px-6 lg:px-20 flex justify-between items-center h-16">
         {/* <img src="src/assets/images.png" alt="Logo" className="w-32 sm:w-40" /> */}
-        <p className="text-blue-600 font-bold text-3xl">BOURSE.CD</p>
+        <p className="text-[#005B9C] font-bold text-2xl">BELO IMMOBILIER</p>
 
         {/* Right nav */}
         <nav className="flex items-center gap-2 sm:gap-4">
-          <button
+
+          <div className="flex space-x-5">
+           <button
             onClick={handleDeposerAnnonce}
-            className="border-blue-800 border text-blue-800 text-sm sm:text-base px-3 sm:px-4 py-1.5 rounded-md hover:bg-blue-800  hover:text-white transition-colors cursor-pointer"
+            className="border-[#2EB5F9] border text-[#005B9C] text-sm sm:text-base px-3 sm:px-4 py-1.5 rounded-md hover:bg-[#2EB5F9]  hover:text-white transition-colors cursor-pointer"
           >
             Déposer une annonce
           </button>
+          <button
+            onClick={handleSouscriptionAnnonce}
+            className="border-[#2EB5F9] border text-[#005B9C] text-sm sm:text-base px-3 sm:px-4 py-1.5 rounded-md hover:bg-[#2EB5F9]  hover:text-white transition-colors cursor-pointer"
+          >
+            Souscrire aux annonces
+          </button>
+          </div>
 
           {/* User dropdown */}
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setOpen(!open)}
-              className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition"
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-[#005B9C] text-white hover:bg-[#2EB5F9] transition"
             >
               {/* <FaUser /> */}
                {user?.avatar ? (
-    <img
-      src={user.avatar}
-      alt="Avatar"
-      className="w-full h-full object-cover rounded-full"
-    />
-  ) : (
-    <FaUser className="text-gray-500 w-6 h-6" />
-  )}
+                <img
+                  src={user.avatar}
+                  alt="Avatar"
+                  className="w-full h-full object-cover rounded-full"
+                />
+              ) : (
+                <FaUser className="text-with w-6 h-6" />
+              )}
             </button>
             {open && (
               <div className="absolute right-0 mt-2 w-52 bg-white border rounded-md shadow-lg z-50">
@@ -113,7 +126,7 @@ export const SectionMenu = () => {
       </header>
 
       {/* Navbar principale */}
-      <div className="bg-blue-800 text-white flex justify-between items-center p-2 sm:px-6 relative md:px-48 md:py-4">
+      <div className="bg-[#005B9C] text-white flex justify-between items-center p-2 sm:px-6 relative md:px-48 md:py-4">
         {/* Hamburger mobile */}
         <button className="md:hidden text-2xl" onClick={() => setSidebarOpen(!sidebarOpen)}>
           {sidebarOpen ? <FaTimes /> : <FaBars />}
@@ -124,7 +137,7 @@ export const SectionMenu = () => {
   {menuItems.map((item) => (
     <li
       key={item.label}
-      className="relative group cursor-pointer px-2 py-1 rounded hover:bg-white hover:text-black transition"
+      className="relative group cursor-pointer px-2 py-1 rounded hover:bg-[#2EB5F9] hover:text-with transition"
       onMouseEnter={() => item.label === "SERVICES" && setShowServicesDesktop(true)}
       onMouseLeave={() => item.label === "SERVICES" && setShowServicesDesktop(false)}
     >
@@ -136,7 +149,7 @@ export const SectionMenu = () => {
             {actualitesSubMenu.map((subItem, index) => (
               <div
                 key={index}
-                className="flex items-center space-x-4 cursor-pointer p-2 hover:bg-blue-100 rounded transition border-b-1 border-gray-300"
+                className="flex items-center space-x-4 cursor-pointer p-2 hover:bg-[#2EB5F9] rounded transition border-b-1 border-gray-300"
               >
                 <FaChevronRight className="text-gray-500 text-xs group-hover:text-blue-600" />
                 <span>{subItem}</span>

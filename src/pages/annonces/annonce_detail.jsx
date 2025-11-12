@@ -94,12 +94,17 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import VisiteVirtuelleModal from "./visite_virtuelle";
 
 export default function AnnonceDetail() {
   const { id } = useParams();
   const [annonce, setAnnonce] = useState(null);
   const [loading, setLoading] = useState(true);
   const [mainImage, setMainImage] = useState(null);
+  const [showVisite, setShowVisite] = useState(false);
+
+
+
 
   useEffect(() => {
     const fetchAnnonce = async () => {
@@ -135,11 +140,11 @@ export default function AnnonceDetail() {
       <h1 className="text-3xl font-bold mb-4">{annonce.titre}</h1>
 
       {/* Type et statut */}
-      <div className="flex flex-wrap gap-4 text-gray-700 mb-2">
+      {/* <div className="flex flex-wrap gap-4 text-gray-700 mb-2">
         <span><strong>Type :</strong> {annonce.typeBien}</span>
         <span><strong>Statut :</strong> {annonce.statut}</span>
         <span><strong>Mode :</strong> {annonce.mode}</span>
-      </div>
+      </div> */}
 
       {/* Section images */}
       <div className="flex gap-4 mb-6">
@@ -191,14 +196,22 @@ export default function AnnonceDetail() {
       </div>
 
       {/* Prix dynamique selon le mode */}
+      
       <p className="text-lg mb-2">
-        <span className="font-semibold">
-          {isLocation ? "Montant du loyer :" : "Prix de vente :"}{" "}
-        </span>
-        <span className="text-blue-600 font-bold">
-          {annonce.prix} {annonce.currency || "USD"}
-        </span>
-      </p>
+  <span className="font-semibold">
+    {isLocation ? "Montant du loyer :" : "Prix de vente :"}{" "}
+  </span>
+  <span className="text-blue-600 font-bold">
+    {isLocation
+      ? annonce.loyer
+        ? `${annonce.loyer} ${annonce.currency || "USD"}`
+        : "Non renseigné"
+      : annonce.prix
+      ? `${annonce.prix} ${annonce.currency || "USD"}`
+      : "Non renseigné"}
+  </span>
+</p>
+
 
       {/* Détails sur la surface */}
       {(annonce.superficie || annonce.surfaceDetail) && (
@@ -243,17 +256,23 @@ export default function AnnonceDetail() {
 
       {/* Autres détails dynamiques */}
       {annonce.details && Object.keys(annonce.details).length > 0 && (
-        <div className="mt-4">
-          <h3 className="font-semibold mb-2">Autres détails :</h3>
-          <ul className="list-disc list-inside text-gray-700">
-            {Object.entries(annonce.details).map(([key, value]) => (
-              <li key={key}>
-                <strong>{key} :</strong> {String(value)}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+  <div className="mt-4">
+    <h3 className="font-semibold mb-2">Autres détails :</h3>
+    <ul className="list-disc list-inside text-gray-700">
+      {Object.entries(annonce.details).map(([key, value]) => {
+        const displayValue =
+          typeof value === "boolean" ? (value ? "Oui" : "Non") : value;
+
+        return (
+          <li key={key}>
+            <strong>{key} :</strong> {displayValue}
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+)}
+
 
       {/* Contact propriétaire */}
       <div className="mt-6 flex items-center gap-4">
@@ -269,6 +288,26 @@ export default function AnnonceDetail() {
           </button>
         )}
       </div>
+      <div className="">
+        <h2>{annonce.title}</h2>
+
+      <div className="pt-4">
+        <button
+          className="bg-blue-600 text-white px-4 py-2 rounded cursor-pointer"
+          onClick={() => setShowVisite(true)}
+        >
+          Demander une visite virtuelle
+        </button>
+
+        <VisiteVirtuelleModal
+          open={showVisite}
+          onClose={() => setShowVisite(false)}
+          roomId={`visite-${annonce.id}`}
+          userType="client"
+        />
+      </div>
+      </div>
+
 
       {/* Dates */}
       <div className="text-gray-500 mt-6 text-sm">

@@ -333,12 +333,15 @@ export default function AnnoncesList() {
             )}
             <h2 className="text-[16px] font-semibold">{annonce.titre}</h2>
             <p className="text-gray-600 truncate">{annonce.description}</p>
-            <p className="text-blue-600 font-bold mt-2">
-              {formatCurrency(annonce.prix, annonce.currency)}
+            <p className="text-[#005B9C] font-bold mt-2">
+              {annonce.mode === "VENTE"
+                ? formatCurrency(annonce.prix, annonce.currency)
+                : formatCurrency(annonce.loyer, annonce.currency)}
             </p>
+
             <Link
               to={`/annonces/${annonce.id}`}
-              className="block mt-4 text-center bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
+              className="block mt-4 text-center bg-[#2EB5F9] text-white py-2 rounded-xl hover:bg-[#005B9C] transition"
             >
               Voir détails
             </Link>
